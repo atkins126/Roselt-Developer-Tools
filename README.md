@@ -27,6 +27,7 @@ _Note: All tools are still in active development with lots of bugs_
 - Text Case Converter & Inspector
 - Color Picker
 - Image Effects
+- HTML Preview
 
 
 ## Planned Tools
