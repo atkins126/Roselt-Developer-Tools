@@ -19,7 +19,7 @@ type
   end;
 
 const
-  RoseltToolsArray: array[0..39] of TRoseltTools = (
+  RoseltToolsArray: array[0..40] of TRoseltTools = (
     ( // Converters Main Category (Parent)
       text_short: 'Converters';
       text_long: 'Converters';
@@ -131,6 +131,21 @@ const
       name: 'JsonYamlConverter';
       description: 'Convert JSON to YAML and vice versa';
       icon: 'arrow-left-right';
+      {$IFDEF DEBUG}
+        active: true;
+        visible: true;
+      {$ELSE}
+        active: true;
+        visible: true;
+      {$ENDIF}
+      parent: 'Converters';
+    ),
+    (
+      text_short: 'Text to Array';
+      text_long: 'Text to Array';
+      name: 'TextToArray';
+      description: 'Convert a text to an array';
+      icon: 'braces';
       {$IFDEF DEBUG}
         active: true;
         visible: true;
@@ -282,7 +297,7 @@ const
       description: 'Indent or minify HTML code';
       icon: 'filetype-html';
       {$IFDEF DEBUG}
-        active: false;
+        active: true;
         visible: true;
       {$ELSE}
         active: false;
