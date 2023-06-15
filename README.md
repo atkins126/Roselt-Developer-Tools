@@ -57,6 +57,7 @@ _Note: All tools are still in active development with lots of bugs_
 - Color Blindness Simulator
 - Code Minifier (Various languages)
 - IP Ping
+- SSL Certificate Decoder
 
 
 ## Download
@@ -65,6 +66,8 @@ Steam: [https://store.steampowered.com/app/1223180/Roselt_Developer_Tools/](http
 
 ## Third Party Libraries
 Skia4Delphi: https://github.com/skia4delphi/skia4delphi
+
+Bootstrap Icons: https://github.com/shaunroselt/Delphi-Bootstrap-Icons
 
 
 ## Screenshots
