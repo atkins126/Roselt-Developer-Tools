@@ -25,8 +25,8 @@ uses
 
   Roselt.CodeFormatting,
 
-  Skia,
-  Skia.FMX;
+  System.Skia,
+  FMX.Skia;
 
 type
   TFrame_HTMLFormatter = class(TFrame)
@@ -128,7 +128,7 @@ end;
 
 procedure TFrame_HTMLFormatter.HTMLFormat;
 begin
-  memOutput.Text := FormatHTML(memInput.Text);
+  memOutput.Text := TCodeFormatter.FormatHTML(memInput.Text);
 end;
 
 procedure TFrame_HTMLFormatter.memInputChange(Sender: TObject);

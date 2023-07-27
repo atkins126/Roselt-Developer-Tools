@@ -19,7 +19,7 @@ type
   end;
 
 const
-  RoseltToolsArray: array[0..40] of TRoseltTools = (
+  RoseltToolsArray: array[0..43] of TRoseltTools = (
     ( // Converters Main Category (Parent)
       text_short: 'Converters';
       text_long: 'Converters';
@@ -60,8 +60,8 @@ const
         active: true;
         visible: true;
       {$ELSE}
-        active: false;
-        visible: false;
+        active: true;
+        visible: true;
       {$ENDIF}
       parent: '';
     ),
@@ -101,6 +101,21 @@ const
       name: 'Graphics';
       description: 'Graphics';
       icon: 'images';
+      {$IFDEF DEBUG}
+        active: true;
+        visible: true;
+      {$ELSE}
+        active: true;
+        visible: true;
+      {$ENDIF}
+      parent: '';
+    ),
+    ( // Converters Main Category (Parent)
+      text_short: 'Other';
+      text_long: 'Other';
+      name: 'Other';
+      description: 'Other';
+      icon: 'hexagon';
       {$IFDEF DEBUG}
         active: true;
         visible: true;
@@ -276,17 +291,32 @@ const
       parent: 'EncodersDecoders';
     ),
     (
+      text_short: 'Delphi';
+      text_long: 'Delphi Formatter';
+      name: 'DelphiFormatter';
+      description: 'Indent or minify Delphi code';
+      icon: 'file-earmark';
+      {$IFDEF DEBUG}
+        active: true;
+        visible: true;
+      {$ELSE}
+        active: true;
+        visible: true;
+      {$ENDIF}
+      parent: 'Formatters';
+    ),
+    (
       text_short: 'JSON';
       text_long: 'JSON Formatter';
       name: 'JsonFormatter';
       description: 'Indent or minify JSON data';
       icon: 'filetype-json';
       {$IFDEF DEBUG}
-        active: false;
+        active: true;
         visible: true;
       {$ELSE}
-        active: false;
-        visible: false;
+        active: true;
+        visible: true;
       {$ENDIF}
       parent: 'Formatters';
     ),
@@ -312,7 +342,7 @@ const
       description: 'Indent SQL queries';
       icon: 'server';
       {$IFDEF DEBUG}
-        active: false;
+        active: true;
         visible: true;
       {$ELSE}
         active: false;
@@ -327,11 +357,11 @@ const
       description: 'Indent or minify XML data';
       icon: 'filetype-xml';
       {$IFDEF DEBUG}
-        active: false;
+        active: true;
         visible: true;
       {$ELSE}
-        active: false;
-        visible: false;
+        active: true;
+        visible: true;
       {$ENDIF}
       parent: 'Formatters';
     ),
@@ -619,6 +649,21 @@ const
         visible: false;
       {$ENDIF}
       parent: 'Graphics';
+    ),
+    (
+      text_short: 'Ping IP / Domain';
+      text_long: 'Ping IP / Domain';
+      name: 'PingIPDomain';
+      description: 'Ping and IP Address or Domain Name';
+      icon: 'wifi';
+      {$IFDEF DEBUG}
+        active: true;
+        visible: true;
+      {$ELSE}
+        active: true;
+        visible: true;
+      {$ENDIF}
+      parent: 'Other';
     ),
     (
       text_short: 'Image Converter';

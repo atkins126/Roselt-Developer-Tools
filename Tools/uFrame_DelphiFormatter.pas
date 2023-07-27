@@ -1,4 +1,4 @@
-unit uFrame_SQLFormatter;
+unit uFrame_DelphiFormatter;
 
 interface
 
@@ -8,7 +8,6 @@ uses
   System.UITypes,
   System.Classes,
   System.Variants,
-
   FMX.Types,
   FMX.Graphics,
   FMX.Controls,
@@ -17,9 +16,9 @@ uses
   FMX.StdCtrls,
   FMX.Memo.Types,
   FMX.ListBox,
-  FMX.Platform,
   FMX.Objects,
   FMX.ScrollBox,
+  FMX.Platform,
   FMX.Memo,
   FMX.Controls.Presentation,
   FMX.Layouts,
@@ -30,7 +29,7 @@ uses
   FMX.Skia;
 
 type
-  TFrame_SQLFormatter = class(TFrame)
+  TFrame_DelphiFormatter = class(TFrame)
     layTop: TLayout;
     lblConfiguration: TLabel;
     layIndentation: TRectangle;
@@ -63,18 +62,25 @@ type
     btnInputClear: TButton;
     imgInputClear: TSkSvg;
     lblInputClear: TLabel;
+    layNumberCharacters: TRectangle;
+    imgNumberCharacters: TSkSvg;
+    layTitleDescriptionNumberCharacters: TLayout;
+    lblTitleNumberCharacters: TLabel;
+    lblDescriptionNumberCharacters: TLabel;
+    lblSwitchNumberCharacters: TLabel;
+    SwitchNumberCharacters: TSwitch;
+    procedure memInputKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure FrameResize(Sender: TObject);
-    procedure btnOutputCopyToClipboardClick(Sender: TObject);
-    procedure btnInputCopyToClipboardClick(Sender: TObject);
-    procedure btnInputPasteFromClipboardClick(Sender: TObject);
-    procedure btnInputLoadClick(Sender: TObject);
-    procedure btnInputClearClick(Sender: TObject);
     procedure memInputChange(Sender: TObject);
-    procedure memInputKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
-      Shift: TShiftState);
+    procedure btnOutputCopyToClipboardClick(Sender: TObject);
+    procedure btnInputPasteFromClipboardClick(Sender: TObject);
+    procedure btnInputCopyToClipboardClick(Sender: TObject);
+    procedure btnInputClearClick(Sender: TObject);
+    procedure btnInputLoadClick(Sender: TObject);
+    procedure cbIndentationChange(Sender: TObject);
   private
     { Private declarations }
-    procedure SQLFormat();
+    procedure DelphiFormat();
   public
     { Public declarations }
   end;
@@ -83,13 +89,13 @@ implementation
 
 {$R *.fmx}
 
-procedure TFrame_SQLFormatter.btnInputClearClick(Sender: TObject);
+procedure TFrame_DelphiFormatter.btnInputClearClick(Sender: TObject);
 begin
   memInput.Lines.Clear;
-  SQLFormat();
+  DelphiFormat();
 end;
 
-procedure TFrame_SQLFormatter.btnInputCopyToClipboardClick(Sender: TObject);
+procedure TFrame_DelphiFormatter.btnInputCopyToClipboardClick(Sender: TObject);
 var
   ClipboardService: IFMXClipboardService;
 begin
@@ -97,16 +103,16 @@ begin
     ClipboardService.SetClipboard(memInput.Text);
 end;
 
-procedure TFrame_SQLFormatter.btnInputLoadClick(Sender: TObject);
+procedure TFrame_DelphiFormatter.btnInputLoadClick(Sender: TObject);
 begin
   if (OpenDialog.Execute) then
   begin
     memInput.Lines.LoadFromFile(OpenDialog.FileName);
-    SQLFormat();
+    DelphiFormat();
   end;
 end;
 
-procedure TFrame_SQLFormatter.btnInputPasteFromClipboardClick(Sender: TObject);
+procedure TFrame_DelphiFormatter.btnInputPasteFromClipboardClick(Sender: TObject);
 var
   ClipboardService: IFMXClipboardService;
 begin
@@ -114,7 +120,7 @@ begin
     memInput.Text := ClipboardService.GetClipboard.ToString;
 end;
 
-procedure TFrame_SQLFormatter.btnOutputCopyToClipboardClick(Sender: TObject);
+procedure TFrame_DelphiFormatter.btnOutputCopyToClipboardClick(Sender: TObject);
 var
   ClipboardService: IFMXClipboardService;
 begin
@@ -122,25 +128,33 @@ begin
     ClipboardService.SetClipboard(memOutput.Text);
 end;
 
-procedure TFrame_SQLFormatter.FrameResize(Sender: TObject);
+procedure TFrame_DelphiFormatter.cbIndentationChange(Sender: TObject);
+begin
+  DelphiFormat();
+end;
+
+procedure TFrame_DelphiFormatter.FrameResize(Sender: TObject);
 begin
   layInput.Width := (layBottom.Width - layBottom.Padding.Left - layBottom.Padding.Right - SplitterInputOutput.Width) / 2;
 end;
 
-procedure TFrame_SQLFormatter.memInputChange(Sender: TObject);
+procedure TFrame_DelphiFormatter.DelphiFormat;
 begin
-  SQLFormat();
+  if (Trim(memInput.Text).Length > 0) then
+  begin
+    if (cbIndentation.Selected.Text = 'Minified') then
+      memOutput.Text := TCodeFormatter.MinifyDelphi(memInput.Text);
+  end else memOutput.Text := '';
 end;
 
-procedure TFrame_SQLFormatter.memInputKeyUp(Sender: TObject; var Key: Word;
-  var KeyChar: Char; Shift: TShiftState);
+procedure TFrame_DelphiFormatter.memInputChange(Sender: TObject);
 begin
-  SQLFormat();
+  DelphiFormat();
 end;
 
-procedure TFrame_SQLFormatter.SQLFormat;
+procedure TFrame_DelphiFormatter.memInputKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
-  memOutput.Text := TCodeFormatter.FormatSQL(memInput.Text);
+  DelphiFormat();
 end;
 
 end.

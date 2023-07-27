@@ -5,6 +5,7 @@ program Roselt_Developer_Tools;
 uses
   System.StartUpCopy,
   FMX.Forms,
+  FMX.Skia,
   uMain in 'uMain.pas' {frmMain},
   uStyles in 'uStyles.pas' {dmStyles: TDataModule},
   Roselt.ColorConversion in 'Roselt.ColorConversion.pas',
@@ -47,11 +48,14 @@ uses
   uFrame_ImageEffects in 'Tools\uFrame_ImageEffects.pas' {Frame_ImageEffects: TFrame},
   uFrame_HTMLPreview in 'Tools\uFrame_HTMLPreview.pas' {Frame_HTMLPreview: TFrame},
   Roselt.CodeFormatting in 'Roselt.CodeFormatting.pas',
-  uFrame_TextToArray in 'Tools\uFrame_TextToArray.pas' {Frame_TextToArray: TFrame};
+  uFrame_TextToArray in 'Tools\uFrame_TextToArray.pas' {Frame_TextToArray: TFrame},
+  uFrame_PingIPDomain in 'Tools\uFrame_PingIPDomain.pas' {Frame_PingIPDomain: TFrame},
+  uFrame_DelphiFormatter in 'Tools\uFrame_DelphiFormatter.pas' {Frame_DelphiFormatter: TFrame};
 
 {$R *.res}
 
 begin
+  GlobalUseSkia := True;
 //  {$IFDEF DEBUG}
 //    ReportMemoryLeaksOnShutdown := True; // This could be useful. Need to learn how it works.
 //  {$ENDIF}
